@@ -1,5 +1,11 @@
 /**
- * Created by zhouxiong on 2017/5/22.
+ * @file 用于直接创建项目模块目录的命令,
+ *       包括controller,service,html已经对应的router
+ * @date 2018-3-21
+ * @author zhouxiong03 (zhouxiong03@meituan.com)
+ * @name  xgk
+ * @example xgk create stockIn/purchaseStorage
+ * 表示在入库管理下创建一个采购入库模块
  */
 
 var fs = require('fs');
@@ -151,7 +157,8 @@ xgk.copyFile = function (src, dist, firstModule, secondModule, flag) {
  */
 xgk.changeRouter = function (firstModule, secondModule) {
     // 1.遍历所有路由文件
-    var routerPath = path.resolve(__dirname, '../src/app/Router');
+    var projectPath = process.cwd();
+    var routerPath = path.resolve(projectPath, 'src/app/Router');
     fs.readdir(routerPath, function (err, paths) {
         if (err) {
             throw err;

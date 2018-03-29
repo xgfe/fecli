@@ -11,7 +11,8 @@ program
     .parse(process.argv);
 
 function create(value) {
-    var basePath = path.resolve(__dirname, '../src/app/Modules');
+    var projectPath = process.cwd();
+    var basePath = path.resolve(projectPath, 'src/app/Modules');
     if (value.indexOf('/') >= 0) {
         // 二级模块
         var firstLevel = value.split('/')[0];
