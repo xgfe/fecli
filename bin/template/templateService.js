@@ -1,10 +1,25 @@
 define(['app'], function (app) {
-    app.factory('templateService', templateService);
+    app.factory('uniqueTemplateService', uniqueTemplateService);
 
-    templateService.$inject = ['$http'];
+    uniqueTemplateService.$inject = ['$http'];
 
-    function templateService($http) {
-        templateService.$http = $http;
-        return {};
+    function uniqueTemplateService($http) {
+        uniqueTemplateService.$http = $http;
+        return {
+            searchPageList
+        };
+    }
+
+    /**
+     * 查询列表页
+     * @param params
+     * @returns {*}
+     */
+    function searchPageList(params) {
+        return uniqueTemplateService.$http({
+            method: 'get',
+            url: basePath + '',
+            params: params
+        });
     }
 });

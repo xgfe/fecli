@@ -3,5 +3,106 @@
     <div class="bg-light lter b-b wrapper-md">
         <h1 class="page-title">模板标题</h1>
     </div>
-    <div class="wrapper-md"></div>
+    <div class="wrapper-md">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>参数1</label>
+                            <div class="row">
+                                <div class="col-md-6 m-b-xs">
+                                    <uix-datepicker size="sm" format="vm.dateFormat.ymd"
+                                                    show-time="false"
+                                                    max-date="vm.params.param2"
+                                                    ng-model="vm.params.param1"></uix-datepicker>
+                                </div>
+                                <div class="col-md-6 m-b-xs">
+                                    <uix-datepicker size="sm" format="vm.dateFormat.ymd"
+                                                    show-time="false"
+                                                    min-date="vm.params.param1"
+                                                    ng-model="vm.params.param2"></uix-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>参数3</label>
+                            <uix-select ng-model="vm.params.param3">
+                                <uix-select-match>{{$select.selected.name}}</uix-select-match>
+                                <uix-select-choices repeat="item in vm.param3List | filter:$select.search">
+                                    <span>{{item.name}}</span>
+                                </uix-select-choices>
+                            </uix-select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>参数4</label>
+                            <input type="text" class="input-sm form-control" ng-model="vm.params.param4">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn w-sm btn-sm btn-primary" ng-click="vm.searchHandler()">
+                            查询
+                        </button>
+                        <button type="button" class="m-l-md btn w-sm btn-default btn-sm" ng-click="vm.resetHandler()">
+                            重置
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default m-t-n-sm">
+            <div class="panel-heading">
+                <button class="btn btn-default btn-sm btn-addon"
+                        ng-click="vm.exportHandler()">
+                    <i class="fa fa-download"></i>导出
+                </button>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive table-scroll">
+                    <table class="table table-striped b-t b-light m-b-none uix-table"
+                           uix-table-loader="vm.tableLoader" loader-height="350">
+                        <thead>
+                        <tr>
+                            <th>列1</th>
+                            <th>列2</th>
+                            <th>列3</th>
+                            <th>列4</th>
+                            <th>列5</th>
+                            <th>列6</th>
+                            <th>列7</th>
+                            <th>列8</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.itemList track by $index">
+                            <td>{{item.col1}}</td>
+                            <td>{{item.col2}}</td>
+                            <td>{{item.col3}}</td>
+                            <td>{{item.col4}}</td>
+                            <td>{{item.col5}}</td>
+                            <td>{{item.col6}}</td>
+                            <td>{{item.col7}}</td>
+                            <td>{{item.col8}}</td>
+                            <td class="uix-table-nowrap">
+                                <button class="btn btn-sm btn-default" title="查看">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="clearfix">
+                    <uix-pager class="pull-right pagination-sm" ng-show="vm.pages.totalCount > 0"
+                               total-items="vm.pages.totalCount" ng-model="vm.pages.pageNo"
+                               items-per-page="vm.pages.pageSize" ng-change="vm.pageChanged()">
+                    </uix-pager>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
