@@ -22,7 +22,9 @@ npm link
 
 ## 使用方法
 
-xgk通过-m参数可以创建模块,包括对应的html,Controller,Service等文件,路由文件也会同时进行修改。
+1.进入到项目根目录下,比如快驴驼峰xgfe-admin,快驴仓配xgfe-wms。
+
+2.xgk通过-m参数可以创建模块,包括对应的html,Controller,Service等文件,路由文件也会同时进行修改。
 
 ```
 xgk -m 一级模块名/二级模块名

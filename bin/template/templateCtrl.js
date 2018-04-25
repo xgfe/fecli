@@ -11,10 +11,61 @@ define([
             Page.setTitle('');
             this.uniqueTemplateService = uniqueTemplateService;
 
-            this.pages = cacheParams.getParams() || {
-                pageNo: 1,
-                pageSize: 20
+            this.getInitOriginParams();
+
+            this.pages = cacheParams.getPages() || {
+                    pageNo: 1,
+                    pageSize: 20
+                };
+
+            this.params = cacheParams.getParams() || this.getInitParams();
+            this.searchHandler();
+        }
+
+        // 获取发送请求的参数
+        getSendParams() {
+            this.sendParams = {};
+        }
+
+        // 初始化加载请求
+        searchHandler() {
+            this.pages.pageNo = 1;
+            this.getSendParams();
+            this.sendRequest(this.sendParams);
+        }
+
+        // 发送请求
+        sendRequest(params) {
+            this.tableLoader = 1;
+            this.uniqueTemplateService.searchPageList(this.sendParams).then(({data: {data, status}}) => {
+                if (status) {
+                    if(this.itemList && this.itemList.length) {
+                        this.tableLoader = 0;
+                        this.pages.pageNo = data.page.currentPageNo;
+                    } else {
+                        this.tableLoader = 2;
+                    }
+                } else {
+                    this.tableLoader = -1;
+                }
+            }, () => this.tableLoader = -1);
+        }
+
+        // 导出
+        exportHandler() {}
+
+        // 初始化参数
+        getInitParams() {
+            return {
+                param1: new Date(),
+                param2: new Date(),
+                param3: this.emptyItem,
+                param4: ''
             };
+        }
+
+        // 初始化集合类参数
+        getInitOriginParams() {
             this.tableLoader = 0;
 
             this.dateFormat = {
@@ -37,40 +88,6 @@ define([
                 name: '列表项2',
                 value: 'value2'
             }];
-
-            this.params = cacheParams.getParams() || this.getInitParams();
-            this.getSendParams();
-            this.searchHandler();
-        }
-
-        // 获取发送请求的参数
-        getSendParams() {
-            this.sendParams = {};
-        }
-
-        // 初始化加载请求
-        searchHandler() {
-            this.pages.pageNo = 1;
-            this.getSendParams();
-            this.sendRequest(this.sendParams);
-        }
-
-        // 发送请求
-        sendRequest(params) {
-            this.uniqueTemplateService.searchPageList(this.sendParams).then(() => {});
-        }
-
-        // 导出
-        exportHandler() {}
-
-        // 初始化参数
-        getInitParams() {
-            return {
-                param1: new Date(),
-                param2: new Date(),
-                param3: this.emptyItem,
-                param4: ''
-            };
         }
 
         // 重置
