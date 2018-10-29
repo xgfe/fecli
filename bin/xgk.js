@@ -129,10 +129,10 @@ xgk.copyFile = function (src, dist, firstModule, secondModule, flag) {
                     result = chunks.toString('utf-8');
                     if(flag){
                         var appendArr = [];
-                        appendArr.push('\t\t\t.state(\'app.' + firstModule + '.' + secondModule + '\', {');
-                        appendArr.push('\t\t\t\turl:\'/' + secondModule + '\',');
-                        appendArr.push('\t\t\t\ttemplateProvider: tplProvider(\'' + firstModule + '/' + secondModule + '/' + secondModule + 'Ctrl' + '\')');
-                        appendArr.push('\t\t\t})');
+                        appendArr.push('.state(\'app.' + firstModule + '.' + secondModule + '\', {');
+                        appendArr.push('    url: \'/' + secondModule + '\',');
+                        appendArr.push('    templateProvider: tplProvider(\'' + firstModule + '/' + secondModule + '/' + secondModule + 'Ctrl' + '\')');
+                        appendArr.push('})');
 
                         var index = result.indexOf('});');
                         var preStr = result.substring(0, index + 2);
@@ -177,7 +177,8 @@ xgk.changeRouter = function (firstModule, secondModule) {
                 xgk.modifyBaseRouter(baseRouter, firstModule);
                 // 创建模块路由文件
                 xgk.createRouter(routerPath, firstModule, secondModule);
-            } else {  // 新增二级模块,则修改原有的路由文件
+            } else {
+                // 新增二级模块,则修改原有的路由文件
                 xgk.modifyModuleRouter(modifyRouterPath, firstModule, secondModule);
             }
         }
@@ -204,7 +205,7 @@ xgk.modifyBaseRouter = function (baseRouter, firstModule) {
     } else {
         lastItem = lastItem + ',';
     }
-    var insertStr = '\t\'.\/' + firstModule + '\'';
+    var insertStr = '    \'.\/' + firstModule + '\'';
     dealArr.splice(dealArr.length - 1, 0, insertStr);
     midStr = dealArr.join('\n');
     var resultStr = preStr + midStr + afterStr;

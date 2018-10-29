@@ -14,9 +14,9 @@ define([
             this.getInitOriginParams();
 
             this.pages = cacheParams.getPages() || {
-                    pageNo: 1,
-                    pageSize: 20
-                };
+                pageNo: 1,
+                pageSize: 20
+            };
 
             this.params = cacheParams.getParams() || this.getInitParams();
             this.searchHandler();
@@ -37,7 +37,7 @@ define([
         // 发送请求
         sendRequest(params) {
             this.tableLoader = 1;
-            this.uniqueTemplateService.searchPageList(this.sendParams).then(({data: {data, status}}) => {
+            this.uniqueTemplateService.searchPageList(params).then(({data: {data, status}}) => {
                 if (status) {
                     if(this.itemList && this.itemList.length) {
                         this.tableLoader = 0;
@@ -106,5 +106,5 @@ define([
 
     return {
         _tpl: __inline('./uniqueTemplate.html')
-    }
+    };
 });
