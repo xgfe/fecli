@@ -3,20 +3,20 @@
  *       包括controller,service,html已经对应的router
  * @date 2018-3-21
  * @author zhouxiong03 (zhouxiong03@meituan.com)
- * @name  kcli
- * @example kcli create stockIn/purchaseStorage
+ * @name  kxcli
+ * @example kxcli create stockIn/purchaseStorage
  * 表示在入库管理下创建一个采购入库模块
  */
 
 var fs = require('fs');
 var path = require('path');
 
-var kcli = {};
+var kxcli = {};
 
 /**
  * 创建目录
  */
-kcli.createModule = function () {
+kxcli.createModule = function () {
     if (arguments.length == 2) {
         var firstPath = arguments[0];
         var secondPath = arguments[1];
@@ -33,13 +33,13 @@ kcli.createModule = function () {
                                     throw err;
                                 }
                                 // 模板文件移动至新增模块下
-                                kcli.moveToModule(secondPath);
+                                kxcli.moveToModule(secondPath);
                                 // 改变路由
                                 var firstArr = firstPath.split('/');
                                 var secondArr = secondPath.split('/');
                                 var firstModule = firstArr[firstArr.length - 1];
                                 var secondModule = secondArr[secondArr.length - 1];
-                                kcli.changeRouter(firstModule, secondModule);
+                                kxcli.changeRouter(firstModule, secondModule);
                             });
                         }
                     });
@@ -52,13 +52,13 @@ kcli.createModule = function () {
                                 throw err;
                             }
                             // 模板文件移动至新增模块下
-                            kcli.moveToModule(secondPath);
+                            kxcli.moveToModule(secondPath);
                             // 改变路由
                             var firstArr = firstPath.split('/');
                             var secondArr = secondPath.split('/');
                             var firstModule = firstArr[firstArr.length - 1];
                             var secondModule = secondArr[secondArr.length - 1];
-                            kcli.changeRouter(firstModule, secondModule);
+                            kxcli.changeRouter(firstModule, secondModule);
                         });
                     }
                 });
@@ -82,7 +82,7 @@ kcli.createModule = function () {
  * 将模板文件复制指定的目录下
  * @param targetPath 目标目录
  */
-kcli.moveToModule = function (targetPath) {
+kxcli.moveToModule = function (targetPath) {
     var tempPath = path.resolve(__dirname, './template');
     fs.access(targetPath, function (err) {
         if (err) {
@@ -98,7 +98,7 @@ kcli.moveToModule = function (targetPath) {
                     var _src = tempPath + '/' + path;
                     path = path.replace('template', moduleName);
                     var _dist = targetPath + '/' + path;
-                    kcli.copyFile(_src, _dist, moduleName, false);
+                    kxcli.copyFile(_src, _dist, moduleName, false);
                 });
             }
         });
@@ -112,7 +112,7 @@ kcli.moveToModule = function (targetPath) {
  * @param moduleName 模块名称
  * @parma flag 标志位
  */
-kcli.copyFile = function (src, dist, firstModule, secondModule, flag) {
+kxcli.copyFile = function (src, dist, firstModule, secondModule, flag) {
     fs.stat(src, function (err, stat) {
         var readable, result;
         if (err) {
@@ -155,7 +155,7 @@ kcli.copyFile = function (src, dist, firstModule, secondModule, flag) {
  * @param firstModule 一级模块名称
  * @param secondModule 二级模块名称
  */
-kcli.changeRouter = function (firstModule, secondModule) {
+kxcli.changeRouter = function (firstModule, secondModule) {
     // 1.遍历所有路由文件
     var projectPath = process.cwd();
     var routerPath = path.resolve(projectPath, 'src/app/Router');
@@ -174,12 +174,12 @@ kcli.changeRouter = function (firstModule, secondModule) {
             // 新增一级模块,则修改router.js并创建新的路由文件
             if (!flag) {
                 // 修改主路由文件
-                kcli.modifyBaseRouter(baseRouter, firstModule);
+                kxcli.modifyBaseRouter(baseRouter, firstModule);
                 // 创建模块路由文件
-                kcli.createRouter(routerPath, firstModule, secondModule);
+                kxcli.createRouter(routerPath, firstModule, secondModule);
             } else {
                 // 新增二级模块,则修改原有的路由文件
-                kcli.modifyModuleRouter(modifyRouterPath, firstModule, secondModule);
+                kxcli.modifyModuleRouter(modifyRouterPath, firstModule, secondModule);
             }
         }
     });
@@ -190,7 +190,7 @@ kcli.changeRouter = function (firstModule, secondModule) {
  * @param baseRouter 主路由文件
  * @param firstModule 一级模块名称
  */
-kcli.modifyBaseRouter = function (baseRouter, firstModule) {
+kxcli.modifyBaseRouter = function (baseRouter, firstModule) {
     var routerBuffer = fs.readFileSync(baseRouter);
     var routerStr = routerBuffer.toString('utf-8');
     var begin = routerStr.indexOf('[');
@@ -217,10 +217,10 @@ kcli.modifyBaseRouter = function (baseRouter, firstModule) {
  * @param routerPath 路由文件目录
  * @param firstModule 模块名称
  */
-kcli.createRouter = function (routerPath, firstModule, secondModule) {
+kxcli.createRouter = function (routerPath, firstModule, secondModule) {
     var templateRouter = path.resolve(__dirname, './router/template.js');
     var targetPath = routerPath + '/' + firstModule + '.js';
-    kcli.copyFile(templateRouter, targetPath, firstModule, secondModule, true);
+    kxcli.copyFile(templateRouter, targetPath, firstModule, secondModule, true);
 };
 
 /**
@@ -228,9 +228,9 @@ kcli.createRouter = function (routerPath, firstModule, secondModule) {
  * @param routerPath 模块路由文件
  * @param secondModule 二级模块名称
  */
-kcli.modifyModuleRouter = function (routerPath, firstModule, secondModule) {
-    kcli.copyFile(routerPath, routerPath, firstModule, secondModule, true);
+kxcli.modifyModuleRouter = function (routerPath, firstModule, secondModule) {
+    kxcli.copyFile(routerPath, routerPath, firstModule, secondModule, true);
 };
 
 
-module.exports = kcli;
+module.exports = kxcli;

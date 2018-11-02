@@ -1,17 +1,17 @@
 {
-  "name": "xgfecli",
+  "name": "kxcli",
   "version": "0.1.0",
   "description": "自动创建项目模块的脚手架工具",
   "main": "index.js",
   "bin": {
-    "kcli": "./bin/main.js"
+    "kxcli": "./bin/main.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xgfe/kcli.git"
+    "url": "https://github.com/xgfe/kxcli.git"
   },
   "author": "",
   "license": "ISC",
