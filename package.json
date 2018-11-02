@@ -1,5 +1,5 @@
 {
-  "name": "kcli",
+  "name": "xgfecli",
   "version": "0.1.0",
   "description": "自动创建项目模块的脚手架工具",
   "main": "index.js",
