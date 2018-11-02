@@ -1,10 +1,10 @@
 {
-  "name": "xgk",
-  "version": "1.0.0",
+  "name": "fecli",
+  "version": "0.1.0",
   "description": "自动创建项目模块的脚手架工具",
   "main": "index.js",
   "bin": {
-    "xgk": "./bin/main.js"
+    "fecli": "./bin/main.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

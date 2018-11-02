@@ -3,7 +3,7 @@
 var program = require('commander');
 var fs = require('fs');
 var path = require('path');
-var xgk = require('./xgk');
+var fecli = require('./fecli');
 
 program
     .version('0.1.0')
@@ -19,11 +19,11 @@ function create(value) {
         var secondLevel = value.split('/')[1];
         var firstPath = basePath + '/' + firstLevel;
         var secondPath = firstPath + '/' + secondLevel;
-        xgk.createModule(firstPath, secondPath);
+        fecli.createModule(firstPath, secondPath);
     } else {
         // 一级模块
         var firstPath = basePath + '/' + value;
-        xgk.createModule(firstPath);
+        fecli.createModule(firstPath);
     }
 }
 
