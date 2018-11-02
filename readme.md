@@ -1,12 +1,12 @@
-## 脚手架工具fecli
+## 脚手架工具kcli
 
-fecli是自动创建项目模块的脚手架工具,目前是基于管理端的项目结构去解析创建。
+kcli是自动创建项目模块的脚手架工具,目前是基于管理端的项目结构去解析创建。
 
 ## 安装
 
 - clone仓库
 
-git clone https://github.com/xgfe/fecli.git
+git clone https://github.com/xgfe/kcli.git
 
 - 进入到项目目录
 
@@ -24,14 +24,14 @@ npm link
 
 1.进入到项目根目录下
 
-2.fecli通过-m参数可以创建模块,包括对应的html,Controller,Service等文件,路由文件也会同时进行修改。
+2.kcli通过-m参数可以创建模块,包括对应的html,Controller,Service等文件,路由文件也会同时进行修改。
 
 ```
-fecli -m 一级模块名/二级模块名
+kcli -m 一级模块名/二级模块名
 ```
 例如想在订单管理下新增一个订单回收站二级模块,可以通过以下命令完成。
 
 ```
-fecli -m oms/recycleBin
+kcli -m oms/recycleBin
 ```
 然后就可以直接进行业务功能的编写了。

@@ -1,17 +1,17 @@
 {
-  "name": "@xgfe/fecli",
+  "name": "kcli",
   "version": "0.1.0",
   "description": "自动创建项目模块的脚手架工具",
   "main": "index.js",
   "bin": {
-    "fecli": "./bin/main.js"
+    "kcli": "./bin/main.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xgfe/fecli.git"
+    "url": "https://github.com/xgfe/kcli.git"
   },
   "author": "",
   "license": "ISC",
