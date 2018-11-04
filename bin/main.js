@@ -5,10 +5,10 @@ var fs = require('fs');
 var path = require('path');
 var kxcli = require('./kxcli');
 
-program
-    .version('0.2.0')
-    .option('-m, --module <value>', '创建新的模块', create)
-    .parse(process.argv);
+// program
+//     .version('0.2.0')
+//     .option('-m, --module <value>', '创建新的模块', createFn)
+//     .parse(process.argv);
 
 function create(value) {
     var projectPath = process.cwd();
@@ -26,6 +26,8 @@ function create(value) {
         kxcli.createModule(firstPath);
     }
 }
+
+exports.create = create;
 
 
 

@@ -1,1 +1,1 @@
-exports.key = 'haha';
+module.exports = require('./bin/main');
