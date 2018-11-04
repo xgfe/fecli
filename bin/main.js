@@ -6,7 +6,7 @@ var path = require('path');
 var kxcli = require('./kxcli');
 
 program
-    .version('0.1.0')
+    .version('0.2.0')
     .option('-m, --module <value>', '创建新的模块', create)
     .parse(process.argv);
 
