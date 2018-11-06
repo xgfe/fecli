@@ -1,15 +1,17 @@
 define([
     'app',
-    './uniqueTemplateService'
-], function (app) {
+    './templateDetail/templateDetailCtrl',
+    './templateService'
+], function (app, uniqueTemplateDetailCtrl) {
     class uniqueTemplateCtrl {
-        static $inject = ['Page', 'uniqueTemplateService', 'cacheParams'];
+        static $inject = ['Page', 'uniqueTemplateService', 'cacheParams', '$uixNotify'];
 
         constructor(...args) {
-            let [Page, uniqueTemplateService, cacheParams] = args;
+            let [Page, uniqueTemplateService, cacheParams, $uixNotify] = args;
 
             Page.setTitle('');
             this.uniqueTemplateService = uniqueTemplateService;
+            this.$uixNotify = $uixNotify;
 
             this.getInitOriginParams();
 
@@ -19,6 +21,9 @@ define([
             };
 
             this.params = cacheParams.getParams() || this.getInitParams();
+
+            uniqueTemplateDetailCtrl.controller.prototype.parentVM = this;
+
             this.searchHandler();
         }
 
@@ -39,9 +44,12 @@ define([
             this.tableLoader = 1;
             this.uniqueTemplateService.searchPageList(params).then(({data: {data, status}}) => {
                 if (status) {
+                    this.itemList = data.pageContent;
                     if(this.itemList && this.itemList.length) {
                         this.tableLoader = 0;
                         this.pages.pageNo = data.page.currentPageNo;
+                        this.pages.pageSize = data.page.pageSize;
+                        this.pages.totalCount = data.page.totalCount;
                     } else {
                         this.tableLoader = 2;
                     }
@@ -51,17 +59,16 @@ define([
             }, () => this.tableLoader = -1);
         }
 
-        // 导出
-        exportHandler() {}
+        // 新增
+        addHandler() {
+            this.$uixNotify.open({
+                ...uniqueTemplateDetailCtrl
+            });
+        }
 
         // 初始化参数
         getInitParams() {
-            return {
-                param1: new Date(),
-                param2: new Date(),
-                param3: this.emptyItem,
-                param4: ''
-            };
+            return {};
         }
 
         // 初始化集合类参数
