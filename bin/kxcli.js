@@ -20,6 +20,9 @@ kxcli.createModule = function () {
     if (arguments.length == 2) {
         var firstPath = arguments[0];
         var secondPath = arguments[1];
+        var tempPath = path.resolve(__dirname, './template');
+        var arr = secondPath.split('/');
+        kxcli.moduleName = arr[arr.length - 1];
         fs.exists(firstPath, function (exists) {
             if (!exists) {
                 fs.mkdir(firstPath, function (error) {
@@ -33,7 +36,7 @@ kxcli.createModule = function () {
                                     throw err;
                                 }
                                 // 模板文件移动至新增模块下
-                                kxcli.moveToModule(secondPath);
+                                kxcli.moveToModule(tempPath, secondPath);
                                 // 改变路由
                                 var firstArr = firstPath.split('/');
                                 var secondArr = secondPath.split('/');
@@ -52,7 +55,7 @@ kxcli.createModule = function () {
                                 throw err;
                             }
                             // 模板文件移动至新增模块下
-                            kxcli.moveToModule(secondPath);
+                            kxcli.moveToModule(tempPath, secondPath);
                             // 改变路由
                             var firstArr = firstPath.split('/');
                             var secondArr = secondPath.split('/');
@@ -82,8 +85,7 @@ kxcli.createModule = function () {
  * 将模板文件复制指定的目录下
  * @param targetPath 目标目录
  */
-kxcli.moveToModule = function (targetPath) {
-    var tempPath = path.resolve(__dirname, './template');
+kxcli.moveToModule = function (tempPath, targetPath) {
     fs.access(targetPath, function (err) {
         if (err) {
             fs.mkdirSync(targetPath);
@@ -92,13 +94,18 @@ kxcli.moveToModule = function (targetPath) {
             if (err) {
                 throw err;
             } else {
-                var moduleArr = targetPath.split('/');
-                var moduleName = moduleArr[moduleArr.length - 1];
-                paths.forEach(function (path) {
-                    var _src = tempPath + '/' + path;
-                    path = path.replace('template', moduleName);
-                    var _dist = targetPath + '/' + path;
-                    kxcli.copyFile(_src, _dist, moduleName, false);
+                paths.forEach(function (pathName) {
+                    var _src = tempPath + '/' + pathName;
+                    pathName = pathName.replace('uniqueTemplate', kxcli.moduleName);
+                    var _dist = targetPath + '/' + pathName;
+                    // 是目录,表示详情页
+                    if (fs.statSync(_src).isDirectory()) {
+                        var detailPath = path.resolve(__dirname, './template/uniqueTemplateDetail');
+                        kxcli.moveToModule(detailPath, _dist);
+                    } else {
+                        // 非详情页,直接复制
+                        kxcli.copyFile(_src, _dist, kxcli.moduleName, false);
+                    }
                 });
             }
         });
@@ -110,7 +117,7 @@ kxcli.moveToModule = function (targetPath) {
  * @param src 源文件路径
  * @param dist 目标文件路径
  * @param moduleName 模块名称
- * @parma flag 标志位
+ * @parma flag 标志位,是否处理路由文件
  */
 kxcli.copyFile = function (src, dist, firstModule, secondModule, flag) {
     fs.stat(src, function (err, stat) {
@@ -127,7 +134,7 @@ kxcli.copyFile = function (src, dist, firstModule, secondModule, flag) {
 
                 readable.on('end', function () {
                     result = chunks.toString('utf-8');
-                    if(flag){
+                    if (flag) {
                         var appendArr = [];
                         appendArr.push('.state(\'app.' + firstModule + '.' + secondModule + '\', {');
                         appendArr.push('    url: \'/' + secondModule + '\',');

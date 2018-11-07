@@ -1,17 +1,17 @@
 define([
     'app',
-    './templateDetail/templateDetailCtrl',
-    './templateService'
+    './uniqueTemplateDetail/uniqueTemplateDetailCtrl',
+    './uniqueTemplateService'
 ], function (app, uniqueTemplateDetailCtrl) {
     class uniqueTemplateCtrl {
-        static $inject = ['Page', 'uniqueTemplateService', 'cacheParams', '$uixNotify'];
+        static $inject = ['Page', 'uniqueTemplateService', 'cacheParams', '$uixModal'];
 
         constructor(...args) {
-            let [Page, uniqueTemplateService, cacheParams, $uixNotify] = args;
+            let [Page, uniqueTemplateService, cacheParams, $uixModal] = args;
 
             Page.setTitle('');
             this.uniqueTemplateService = uniqueTemplateService;
-            this.$uixNotify = $uixNotify;
+            this.$uixModal = $uixModal;
 
             this.getInitOriginParams();
 
@@ -24,7 +24,11 @@ define([
 
             uniqueTemplateDetailCtrl.controller.prototype.parentVM = this;
 
-            this.searchHandler();
+            this.itemList = [{
+                col1: 10001
+            }];
+
+            // this.searchHandler();
         }
 
         // 获取发送请求的参数
@@ -61,7 +65,7 @@ define([
 
         // 新增
         addHandler() {
-            this.$uixNotify.open({
+            this.$uixModal.open({
                 ...uniqueTemplateDetailCtrl
             });
         }

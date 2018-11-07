@@ -1,5 +1,5 @@
-define(['./templateDetailService'], function () {
-    const template = __inline('./templateDetail.html');
+define(['./uniqueTemplateDetailService'], function () {
+    const template = __inline('./uniqueTemplateDetail.html');
 
     class uniqueTemplateDetailCtrl {
         static  $inject = ['uniqueTemplateDetailService', '$uixModalInstance'];
@@ -13,15 +13,21 @@ define(['./templateDetailService'], function () {
 
         // 获取详情
         getDetail(id) {
-            this.uniqueTemplateDetailService.getDetail(id).then(({data: {status, message, data}}) => {
+            this.uniqueTemplateDetailService.getDetail(id).then(({data: {status, data}}) => {
                 if (status) {
                     this.detail = data;
                 }
             });
         }
 
+        // 确定
+        ok() {
+            this.$uixModalInstance.close();
+        }
+
+        // 取消
         cancel() {
-            this.$uixModalInstance.dismiss('cancel');
+            this.$uixModalInstance.close();
         }
     }
 
