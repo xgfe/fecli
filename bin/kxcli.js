@@ -10,7 +10,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var version = require('./package.json').version;
+var version = require('../package.json').version;
 
 var kxcli = {
     version: version
