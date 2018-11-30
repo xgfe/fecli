@@ -28,6 +28,7 @@ function create(value) {
 }
 
 exports.create = create;
+exports.version = kxcli.version;
 
 
 

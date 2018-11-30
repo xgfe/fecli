@@ -1,6 +1,6 @@
 {
   "name": "kxcli",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "自动创建项目模块的脚手架工具",
   "main": "index.js",
   "bin": {
