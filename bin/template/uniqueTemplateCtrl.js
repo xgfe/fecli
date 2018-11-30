@@ -23,24 +23,20 @@ define([
             this.params = cacheParams.getParams() || this.getInitParams();
 
             uniqueTemplateDetailCtrl.controller.prototype.parentVM = this;
-
-            this.itemList = [{
-                col1: 10001
-            }];
-
-            // this.searchHandler();
         }
 
         // 获取发送请求的参数
         getSendParams() {
-            this.sendParams = {};
+            let params = {};
+            this.sendParams = params;
+            return params;
         }
 
         // 初始化加载请求
         searchHandler() {
             this.pages.pageNo = 1;
-            this.getSendParams();
-            this.sendRequest(this.sendParams);
+            const params = this.getSendParams();
+            this.sendRequest(params);
         }
 
         // 发送请求
@@ -83,22 +79,6 @@ define([
                 ymd: 'yyyy-MM-dd',
                 ymdhms: 'yyyy-MM-dd HH:mm:ss'
             };
-
-            this.emptyItem = {
-                name: '全部',
-                value: ''
-            };
-
-            this.param3List = [{
-                name: '全部',
-                value: ''
-            }, {
-                name: '列表项1',
-                value: 'value1'
-            }, {
-                name: '列表项2',
-                value: 'value2'
-            }];
         }
 
         // 重置
