@@ -10,8 +10,11 @@
 
 var fs = require('fs');
 var path = require('path');
+var version = require('./package.json').version;
 
-var kxcli = {};
+var kxcli = {
+    version: version
+};
 
 /**
  * 创建目录
