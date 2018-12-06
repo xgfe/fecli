@@ -2,23 +2,7 @@
 
 kxcli是自动创建项目模块的脚手架工具,目前是基于管理端的项目结构去解析创建。
 
-## 安装
-
-- clone仓库
-
-git clone https://github.com/xgfe/kxcli.git
-
-- 进入到项目目录
-
-cd kxcli
-
-- 安装依赖
-
-npm install
-
-- npm包链到本地
-
-npm link
+已经通过插件的形式集成至xg中,只需要安装xg-command-kxcli插件1.1.3以上版本即可。
 
 ## 使用方法
 
@@ -27,11 +11,11 @@ npm link
 2.kxcli通过-m参数可以创建模块,包括对应的html,Controller,Service等文件,路由文件也会同时进行修改。
 
 ```
-kxcli -m 一级模块名/二级模块名
+xg kxcli -m 一级模块名/二级模块名
 ```
 例如想在订单管理下新增一个订单回收站二级模块,可以通过以下命令完成。
 
 ```
-kxcli -m oms/recycleBin
+xg kxcli -m oms/recycleBin
 ```
 然后就可以直接进行业务功能的编写了。
