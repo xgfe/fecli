@@ -15,7 +15,7 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "commander": "^2.15.1"
   }
 }
